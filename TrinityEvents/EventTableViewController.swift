@@ -9,10 +9,12 @@
 
 import UIKit
 
-class EventTableViewController: UITableViewController {
+class EventTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
     // MARK: Properties
     
     var events = [Event]()
+    var downloadTask: NSURLSessionDownloadTask!
+    var backgroundSession: NSURLSession!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,51 @@ class EventTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    // 1
+    func URLSession(session: NSURLSession,
+        downloadTask: NSURLSessionDownloadTask,
+        didFinishDownloadingToURL location: NSURL){
+            
+            let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let documentDirectoryPath:String = path[0]
+            let fileManager = NSFileManager()
+            let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/file.pdf"))
+            
+            if fileManager.fileExistsAtPath(destinationURLForFile.path!){
+                
+            }
+            else{
+                do {
+                    try fileManager.moveItemAtURL(location, toURL: destinationURLForFile)
+                        print("File created")
+                    // show file
+                }catch{
+                    print("An error occurred while moving file to destination url")
+                }
+            }
+    }
+    // 2
+    func URLSession(session: NSURLSession,
+        downloadTask: NSURLSessionDownloadTask,
+        didWriteData bytesWritten: Int64,
+        totalBytesWritten: Int64,
+        totalBytesExpectedToWrite: Int64){
+    }
+    
+    
+    func URLSession(session: NSURLSession,
+        task: NSURLSessionTask,
+        didCompleteWithError error: NSError?){
+            downloadTask = nil
+            if (error != nil) {
+                print(error?.description)
+            }else{
+                print("The task finished transferring data successfully")
+            }
+    }
+
 
     // MARK: - Table view data source
 
