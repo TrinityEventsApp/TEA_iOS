@@ -12,55 +12,44 @@ import Foundation
 
 class EventTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
     // MARK: Properties
-
     var events = [Event]()
-    var downloadTask: NSURLSessionDownloadTask!
-    var backgroundSession: NSURLSession!
-
+    var filePath: NSURL!
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleEvents()
+        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        filePath = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
+        
+        let url = NSURL(string: "http://clontarfguitarlessons.com/getEvents.php")!
+        let urlData = NSData(contentsOfURL:url);
+        if (( urlData ) != nil)
+        {
+            print("loaded from URL")
+            if (urlData!.writeToURL(filePath, atomically: true) == true)
+            {
+                print("writing Succeded")
+            }
+        }
+        loadEvents()
     }
     
-    func loadSampleEvents() {
-        //let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        //let documentDirectoryPath:String = path[0]
+    func loadEvents() {
         
-        let blogsURL: NSURL = NSURL(fileURLWithPath:"/Users/bryan/Downloads/Start-Dev-iOS-Apps-09-3/TrinityEvents/TrinityEvents/getEvents.json")
-        
-        //let blogsURL: NSURL=NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
-        
-        let data = NSData(contentsOfURL: blogsURL)!
-
-        var names = [String]()
-        
+        let data = NSData(contentsOfURL: filePath)!
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             
-            if let blogs = json["result"] as? [[String: AnyObject]] {
-                for blog in blogs {
-                    if let name = blog["Society Name"] as? String {
-                        names.append(name)
+            if let result = json["result"] as? [[String: AnyObject]] {
+                for entry in result {
+                    //let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+                    //let decodedimage = UIImage(data: decodedData)
+                    let event = Event(name: entry["Society Name"] as! String,photo: nil)
+                    events += [event!]
                     }
-                }
             }
         } catch {
             print("error serializing JSON: \(error)")
         }
-        
-        print(names)
-
-        
-        let photo1 = UIImage(named: "event1")!
-        let event1 = Event(name: names[0], photo: photo1)!
-        
-        let photo2 = UIImage(named: "event2")!
-        let event2 = Event(name: "Christian", photo: photo2)!
-        
-        let photo3 = UIImage(named: "event3")!
-        let event3 = Event(name: "DUCSS", photo: photo3)!
-        
-        events += [event1, event2, event3]
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,54 +57,6 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
         // Dispose of any resources that can be recreated.
     }
     
-    
-    // 1
-    func URLSession(session: NSURLSession,
-        downloadTask: NSURLSessionDownloadTask,
-        didFinishDownloadingToURL location: NSURL){
-            
-            let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-            let documentDirectoryPath:String = path[0]
-            let fileManager = NSFileManager()
-            var destinationURLForFile: NSURL?
-            destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
-            
-            if fileManager.fileExistsAtPath(destinationURLForFile!.path!){
-                do{try fileManager.replaceItemAtURL(destinationURLForFile!, withItemAtURL: location, backupItemName: "thing.bak", options: NSFileManagerItemReplacementOptions.UsingNewMetadataOnly , resultingItemURL:&destinationURLForFile)
-                }catch{
-                    print("error replacing file")
-                }
-            }
-            else{
-                do {
-                    try fileManager.moveItemAtURL(location, toURL: destinationURLForFile!)
-                        print("File created")
-                    // show file
-                }catch{
-                    print("An error occurred while moving file to destination url")
-                }
-            }
-    }
-    // 2
-    func URLSession(session: NSURLSession,
-        downloadTask: NSURLSessionDownloadTask,
-        didWriteData bytesWritten: Int64,
-        totalBytesWritten: Int64,
-        totalBytesExpectedToWrite: Int64){
-    }
-    
-    
-    func URLSession(session: NSURLSession,
-        task: NSURLSessionTask,
-        didCompleteWithError error: NSError?){
-            downloadTask = nil
-            if (error != nil) {
-                print(error?.description)
-            }else{
-                print("The task finished transferring data successfully")
-            }
-    }
-
 
     // MARK: - Table view data source
 
@@ -141,13 +82,7 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
         return cell
     }
 
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return false
-    }
     
-
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -158,22 +93,6 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation
