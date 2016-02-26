@@ -8,23 +8,51 @@
 //
 
 import UIKit
+import Foundation
 
 class EventTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
     // MARK: Properties
-    
+
     var events = [Event]()
     var downloadTask: NSURLSessionDownloadTask!
     var backgroundSession: NSURLSession!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         loadSampleEvents()
     }
     
     func loadSampleEvents() {
+        //let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        //let documentDirectoryPath:String = path[0]
+        
+        let blogsURL: NSURL = NSURL(fileURLWithPath:"/Users/bryan/Downloads/Start-Dev-iOS-Apps-09-3/TrinityEvents/TrinityEvents/getEvents.json")
+        
+        //let blogsURL: NSURL=NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
+        
+        let data = NSData(contentsOfURL: blogsURL)!
+
+        var names = [String]()
+        
+        do {
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+            
+            if let blogs = json["result"] as? [[String: AnyObject]] {
+                for blog in blogs {
+                    if let name = blog["Society Name"] as? String {
+                        names.append(name)
+                    }
+                }
+            }
+        } catch {
+            print("error serializing JSON: \(error)")
+        }
+        
+        print(names)
+
+        
         let photo1 = UIImage(named: "event1")!
-        let event1 = Event(name: "Film", photo: photo1)!
+        let event1 = Event(name: names[0], photo: photo1)!
         
         let photo2 = UIImage(named: "event2")!
         let event2 = Event(name: "Christian", photo: photo2)!
@@ -49,14 +77,18 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
             let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             let documentDirectoryPath:String = path[0]
             let fileManager = NSFileManager()
-            let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/file.pdf"))
+            var destinationURLForFile: NSURL?
+            destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
             
-            if fileManager.fileExistsAtPath(destinationURLForFile.path!){
-                
+            if fileManager.fileExistsAtPath(destinationURLForFile!.path!){
+                do{try fileManager.replaceItemAtURL(destinationURLForFile!, withItemAtURL: location, backupItemName: "thing.bak", options: NSFileManagerItemReplacementOptions.UsingNewMetadataOnly , resultingItemURL:&destinationURLForFile)
+                }catch{
+                    print("error replacing file")
+                }
             }
             else{
                 do {
-                    try fileManager.moveItemAtURL(location, toURL: destinationURLForFile)
+                    try fileManager.moveItemAtURL(location, toURL: destinationURLForFile!)
                         print("File created")
                     // show file
                 }catch{
