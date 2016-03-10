@@ -1,12 +1,3 @@
-//
-//  EventTableViewController.swift
-//  TrinityEvents
-//
-//  Created by Jane Appleseed on 5/27/15.
-//  Copyright © 2015 Apple Inc. All rights reserved.
-//  See LICENSE.txt for this sample’s licensing information.
-//
-
 import UIKit
 import Foundation
 
@@ -35,23 +26,25 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
     
     func loadEvents() {
         
-        let data = NSData(contentsOfURL: filePath)!
+        let data = NSData(contentsOfURL: filePath)! //Data is from the file
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             
+//--------------------------------JSON PARSING------------------------------------
             if let result = json["result"] as? [[String: AnyObject]] {
                 for entry in result {
-                    let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+                    let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters) //get get the imagedata from the string (should store as a byte arrray?)
                     
-                    let decodedimage = UIImage(data: decodedData!)
+                    let decodedImage = UIImage(data: decodedData!) //convert that data into an image we can use
                     
-                    let event = Event(name: entry["Society Name"] as! String,photo: decodedimage)
-                    events += [event!]
+                    let event = Event(name: entry["Society Name"] as! String,photo: decodedImage)   //create an event with the society and Image of that JSON entry
+                    events += [event!] //add it to the array of events
                     }
             }
         } catch {
             print("error serializing JSON: \(error)")
         }
+//---------------------------------------------------------------------------------
     }
 
     override func didReceiveMemoryWarning() {
