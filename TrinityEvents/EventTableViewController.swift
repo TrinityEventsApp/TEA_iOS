@@ -41,9 +41,11 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
             
             if let result = json["result"] as? [[String: AnyObject]] {
                 for entry in result {
-                    //let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
-                    //let decodedimage = UIImage(data: decodedData)
-                    let event = Event(name: entry["Society Name"] as! String,photo: nil)
+                    let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+                    
+                    let decodedimage = UIImage(data: decodedData!)
+                    
+                    let event = Event(name: entry["Society Name"] as! String,photo: decodedimage)
                     events += [event!]
                     }
             }
