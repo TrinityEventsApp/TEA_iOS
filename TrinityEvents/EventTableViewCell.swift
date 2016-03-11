@@ -3,7 +3,9 @@ class EventTableViewCell: UITableViewCell {
     // MARK: Properties
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var socNameLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var start: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

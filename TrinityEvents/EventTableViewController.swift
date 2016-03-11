@@ -27,22 +27,36 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
     func loadEvents() {
         
         let data = NSData(contentsOfURL: filePath)! //Data is from the file
+        var events1 = [Event]()
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             
 //--------------------------------JSON PARSING------------------------------------
+            
             if let result = json["result"] as? [[String: AnyObject]] {
                 for entry in result {
                     let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters) //get get the imagedata from the string (should store as a byte arrray?)
                     
                     let decodedImage = UIImage(data: decodedData!) //convert that data into an image we can use
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateStyle = .MediumStyle
+                    dateFormatter.timeStyle = .NoStyle
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let startDate:NSDate = dateFormatter.dateFromString(entry["Start Date"] as! String)!
+                    let endDate:NSDate = dateFormatter.dateFromString(entry["End Date"] as! String)!
                     
-                    let event = Event(name: entry["Society Name"] as! String,photo: decodedImage)   //create an event with the society and Image of that JSON entry
-                    events += [event!] //add it to the array of events
+                    //let event = Event(name: entry["Event Name"] as! String,photo: decodedImage)   //create an event with the society and Image of that JSON entry
+                    //let event = Event(name: entry["Event Name"] as! String,photo: decodedImage)
+                    let event = Event(name: entry["Event Name"] as! String,societyName: (entry["Society Name"] as! String),eventDescription: (entry["Event Description"] as? String),photo: decodedImage,startDate: startDate, endDate: endDate, location: (entry["Destination"] as? String))
+                    events1 += [event!] //add it to the array of events
                     }
             }
         } catch {
             print("error serializing JSON: \(error)")
+        }
+        for e in events1.sort({$0.startDate.compare($1.startDate) == NSComparisonResult.OrderedAscending})
+        {
+            events += [e]
         }
 //---------------------------------------------------------------------------------
     }
@@ -72,7 +86,12 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
         let event = events[indexPath.row]
         
         cell.nameLabel.text = event.name
+        cell.socNameLabel.text = event.societyName
         cell.photoImageView.image = event.photo
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .MediumStyle
+        cell.start.text = dateFormatter.stringFromDate(event.startDate)
         
         return cell
     }

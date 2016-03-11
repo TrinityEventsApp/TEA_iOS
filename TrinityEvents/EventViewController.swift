@@ -24,7 +24,7 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
         
         // Set up views if editing an existing Event.
         if let event = event {
-            navigationItem.title = event.name
+            navigationItem.title = event.societyName
 //            nameTextField.text   = event.name
             label.text           = event.name
             photoImageView.image = event.photo
