@@ -44,7 +44,6 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
                     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                     let startDate:NSDate = dateFormatter.dateFromString(entry["Start Date"] as! String)!
                     let endDate:NSDate = dateFormatter.dateFromString(entry["End Date"] as! String)!
-                    
                     //let event = Event(name: entry["Event Name"] as! String,photo: decodedImage)   //create an event with the society and Image of that JSON entry
                     //let event = Event(name: entry["Event Name"] as! String,photo: decodedImage)
                     let event = Event(name: entry["Event Name"] as! String,societyName: (entry["Society Name"] as! String),eventDescription: (entry["Event Description"] as? String),photo: decodedImage,startDate: startDate, endDate: endDate, location: (entry["Destination"] as? String))
