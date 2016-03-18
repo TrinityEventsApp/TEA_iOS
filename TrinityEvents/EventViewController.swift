@@ -3,13 +3,15 @@ import UIKit
 class EventViewController: UIViewController, UINavigationControllerDelegate {
     // MARK: Properties
     
-    @IBOutlet weak var nameTextField: UITextField!
+    //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet weak var label: UILabel!
-    
+    @IBOutlet weak var eventName: UILabel!
+    @IBOutlet weak var eventDescription: UILabel!
 //    @IBOutlet weak var ratingControl: RatingControl!
+    @IBOutlet weak var scrollView: UIScrollView!
 //    @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet var myView: UIView!
     /*
         This value is either passed by `EventTableViewController` in `prepareForSegue(_:sender:)`
         or constructed as part of adding a new event.
@@ -19,6 +21,14 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // setup scrollview
+        let insets = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0)
+        scrollView.contentInset = insets
+        scrollView.scrollIndicatorInsets = insets
+        
+        //scrollView.setContentOffset(CGPointMake(0,scrollView.contentOffset.y),animated: true);
+        scrollView.directionalLockEnabled = true
+        
         // Handle the text field’s user input through delegate callbacks.
         //nameTextField.delegate = self
         
@@ -26,35 +36,12 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
         if let event = event {
             navigationItem.title = event.societyName
 //            nameTextField.text   = event.name
-            label.text           = event.name
+            eventName.text           = event.name
+            eventDescription.text           = event.eventDescription
             photoImageView.image = event.photo
             //ratingControl.rating = event.rating
         }
-        
-        // Enable the Save button only if the text field has a valid Event name.
-        //checkValidEventName()
     }
-    
-    // MARK: UITextFieldDelegate
-/*
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        // Hide the keyboard.
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        //checkValidEventName()
-        navigationItem.title = textField.text
-    }
-
-    func textFieldDidBeginEditing(textField: UITextField) {
-        // Disable the Save button while editing.
-//        saveButton.enabled = false
-    }
-*/
-    // MARK: UIImagePickerControllerDelegate
-    
     // MARK: Navigation
     
     @IBAction func cancel(sender: UIBarButtonItem) {
