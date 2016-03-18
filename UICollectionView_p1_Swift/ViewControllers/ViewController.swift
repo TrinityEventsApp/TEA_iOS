@@ -70,7 +70,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: - UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+        galleryItems[indexPath.row].selected = !galleryItems[indexPath.row].selected
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)!
+        if(galleryItems[indexPath.row].selected) {
+            cell.backgroundColor = UIColor.blackColor()
+        }
+        else {
+            cell.backgroundColor = UIColor.blueColor()
+        }
         
         
   /*
