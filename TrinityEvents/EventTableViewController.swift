@@ -4,28 +4,16 @@ import Foundation
 class EventTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
     // MARK: Properties
     var events = [Event]()
-    var filePath: NSURL!
+    //var filePath: NSURL!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let documentDirectoryPath:String = path[0]
-        filePath = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
-        
-        let url = NSURL(string: "http://clontarfguitarlessons.com/getEvents.php")!
-        let urlData = NSData(contentsOfURL:url);
-        if (( urlData ) != nil)
-        {
-            print("loaded from URL")
-            if (urlData!.writeToURL(filePath, atomically: true) == true)
-            {
-                print("writing Succeded")
-            }
-        }
         loadEvents()
     }
     
     func loadEvents() {
-        
+        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let filePath = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
         let data = NSData(contentsOfURL: filePath)! //Data is from the file
         var events1 = [Event]()
         do {
@@ -68,10 +56,9 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        return 2
+//    }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
@@ -95,19 +82,6 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
         return cell
     }
 
-    
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            events.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -124,19 +98,4 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
         }
     }
     
-
-    @IBAction func unwindToEventList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? EventViewController, event = sourceViewController.event {
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing event.
-                events[selectedIndexPath.row] = event
-                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
-            } else {
-                // Add a new event.
-                let newIndexPath = NSIndexPath(forRow: events.count, inSection: 0)
-                events.append(event)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            }
-        }
-    }
 }

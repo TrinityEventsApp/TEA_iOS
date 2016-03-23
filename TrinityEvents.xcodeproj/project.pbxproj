@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		934178591C7846AB0047B5F2 /* getEvents.json in Resources */ = {isa = PBXBuildFile; fileRef = 934178581C7846AB0047B5F2 /* getEvents.json */; };
+		9354263E1C9C3D18001F08A5 /* doDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9354263D1C9C3D18001F08A5 /* doDownload.swift */; };
 		CA1902E01B10E523000271C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1902DF1B10E523000271C4 /* AppDelegate.swift */; };
 		CA1902E21B10E523000271C4 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1902E11B10E523000271C4 /* EventViewController.swift */; };
 		CA1902E51B10E523000271C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1902E31B10E523000271C4 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		934178581C7846AB0047B5F2 /* getEvents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getEvents.json; sourceTree = "<group>"; };
+		9354263D1C9C3D18001F08A5 /* doDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = doDownload.swift; sourceTree = "<group>"; };
 		CA1902DC1B10E523000271C4 /* TrinityEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrinityEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1902DF1B10E523000271C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA1902E11B10E523000271C4 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -87,9 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				934178581C7846AB0047B5F2 /* getEvents.json */,
-				CA1902DF1B10E523000271C4 /* AppDelegate.swift */,
 				CA1902E11B10E523000271C4 /* EventViewController.swift */,
 				CA734E341B155077001A6F80 /* Event.swift */,
+				9354263D1C9C3D18001F08A5 /* doDownload.swift */,
+				CA1902DF1B10E523000271C4 /* AppDelegate.swift */,
 				CA1902E31B10E523000271C4 /* Main.storyboard */,
 				CA5D06021B162F2300095F0F /* EventTableViewController.swift */,
 				CA5D06001B162F2300095F0F /* EventTableViewCell.swift */,
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9354263E1C9C3D18001F08A5 /* doDownload.swift in Sources */,
 				CA734E351B155077001A6F80 /* Event.swift in Sources */,
 				CA1902E21B10E523000271C4 /* EventViewController.swift in Sources */,
 				CA1902E01B10E523000271C4 /* AppDelegate.swift in Sources */,

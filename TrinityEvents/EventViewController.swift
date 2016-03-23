@@ -21,17 +21,6 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // setup scrollview
-        let insets = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0)
-        scrollView.contentInset = insets
-        scrollView.scrollIndicatorInsets = insets
-        
-        //scrollView.setContentOffset(CGPointMake(0,scrollView.contentOffset.y),animated: true);
-        scrollView.directionalLockEnabled = true
-        
-        // Handle the text field’s user input through delegate callbacks.
-        //nameTextField.delegate = self
-        
         // Set up views if editing an existing Event.
         if let event = event {
             navigationItem.title = event.societyName
@@ -39,8 +28,25 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
             eventName.text           = event.name
             eventDescription.text           = event.eventDescription
             photoImageView.image = event.photo
+            print(event.eventDescription)
             //ratingControl.rating = event.rating
         }
+        //stackView.sizeToFit()
+        //scrollView.sizeToFit()
+       // myView.sizeToFit()
+        //let size = stackView.intrinsicContentSize()
+    //    scrollView.contentSize = size
+        // setup scrollview
+        //let insets = UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0)
+        //scrollView.contentInset = insets
+        //scrollView.scrollIndicatorInsets = insets
+        
+        //scrollView.setContentOffset(CGPointMake(0,scrollView.contentOffset.y),animated: true);
+        //scrollView.directionalLockEnabled = true
+        
+        // Handle the text field’s user input through delegate callbacks.
+        //nameTextField.delegate = self
+        
     }
     // MARK: Navigation
     
@@ -54,7 +60,6 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
             navigationController!.popViewControllerAnimated(true)
         }
     }
-    
     // This method lets you configure a view controller before it's presented.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 

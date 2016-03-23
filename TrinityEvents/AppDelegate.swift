@@ -7,6 +7,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        doDownload("http://clontarfguitarlessons.com/getEvents.php", filename: "getEvents.json")
+        doDownload("http://clontarfguitarlessons.com/getInfo.php", filename: "getInfo.json")
+        //let userData = NSUserDefaults.init();
+        //userData.setValue(<#T##NSObject#>, forKey: "getEvents.json")
         // Override point for customization after application launch.
         return true
     }
