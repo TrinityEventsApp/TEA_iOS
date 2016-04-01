@@ -1,6 +1,6 @@
 import UIKit
 class EventTableViewCell: UITableViewCell {
-    // MARK: Properties
+    //this class holds all the data that is to be displayed in a cell of the table
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var socNameLabel: UILabel!

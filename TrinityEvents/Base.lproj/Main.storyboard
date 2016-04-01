@@ -80,16 +80,16 @@
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgJ-zq-uQH">
                                 <rect key="frame" x="-20" y="64" width="640" height="600"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="246" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6CW-NK-mGa">
+                                    <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="246" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6CW-NK-mGa">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="246"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="750" misplaced="YES" text="Event Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-wu-1PY">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="750" text="Event Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-wu-1PY">
                                                 <rect key="frame" x="274" y="0.0" width="93" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="OEg-fp-J0R">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="OEg-fp-J0R">
                                                 <rect key="frame" x="230" y="33" width="180" height="180"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -98,7 +98,7 @@
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="180" id="lxF-1Z-fmk"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" misplaced="YES" text="Event Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFu-jL-77v">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" text="Event Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFu-jL-77v">
                                                 <rect key="frame" x="253" y="225" width="135" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -130,21 +130,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="sgJ-zq-uQH" secondAttribute="trailing" constant="-40" id="02i-X5-pum"/>
                             <constraint firstItem="sgJ-zq-uQH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-40" id="OUg-MS-wLh"/>
                             <constraint firstItem="sgJ-zq-uQH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Rcl-KW-G3t"/>
+                            <constraint firstItem="sgJ-zq-uQH" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="40" id="UB3-kT-oVe"/>
                             <constraint firstItem="sgJ-zq-uQH" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="UG2-8j-AVK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="sgJ-zq-uQH" secondAttribute="trailing" id="s2x-gh-x4I"/>
-                            <constraint firstItem="sgJ-zq-uQH" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="v4x-dy-KXV"/>
-                            <constraint firstItem="sgJ-zq-uQH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="zLl-r0-lrQ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="s2x-gh-x4I"/>
-                                <exclude reference="v4x-dy-KXV"/>
-                                <exclude reference="zLl-r0-lrQ"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="New Event" id="qx4-RS-RMK" userLabel="New Event">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="L5E-Mp-bGp">

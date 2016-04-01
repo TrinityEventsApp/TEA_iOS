@@ -1,10 +1,8 @@
-
-
 import UIKit
 
 class Event {
     // MARK: Properties
-    
+//this class is used to hold all the data associated with an event
     var name: String
     var societyName: String
     var eventDescription: String?

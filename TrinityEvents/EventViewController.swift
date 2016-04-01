@@ -1,9 +1,7 @@
 import UIKit
 
 class EventViewController: UIViewController, UINavigationControllerDelegate {
-    // MARK: Properties
-    
-    //@IBOutlet weak var nameTextField: UITextField!
+//this class controls the view that shows when you click on an event
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var eventName: UILabel!
     @IBOutlet weak var eventDescription: UILabel!
@@ -24,28 +22,11 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
         // Set up views if editing an existing Event.
         if let event = event {
             navigationItem.title = event.societyName
-//            nameTextField.text   = event.name
             eventName.text           = event.name
             eventDescription.text           = event.eventDescription
             photoImageView.image = event.photo
             print(event.eventDescription)
-            //ratingControl.rating = event.rating
-        }
-        //stackView.sizeToFit()
-        //scrollView.sizeToFit()
-       // myView.sizeToFit()
-        //let size = stackView.intrinsicContentSize()
-    //    scrollView.contentSize = size
-        // setup scrollview
-        //let insets = UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0)
-        //scrollView.contentInset = insets
-        //scrollView.scrollIndicatorInsets = insets
-        
-        //scrollView.setContentOffset(CGPointMake(0,scrollView.contentOffset.y),animated: true);
-        //scrollView.directionalLockEnabled = true
-        
-        // Handle the text field’s user input through delegate callbacks.
-        //nameTextField.delegate = self
+         }
         
     }
     // MARK: Navigation

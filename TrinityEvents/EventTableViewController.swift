@@ -2,8 +2,8 @@ import UIKit
 import Foundation
 
 class EventTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
-    // MARK: Properties
-    var events = [Event]()
+    //this file deals with the table of events that shows when the app starts
+    var events = [Event]() //array of events which will be displayed
     //var filePath: NSURL!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,18 +53,13 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
         // Dispose of any resources that can be recreated.
     }
     
-
-    // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 2
-//    }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // Table view cells are reused and should be dequeued using a cell identifier.
+//this function loads the events into a table from the events[] array created earlier. The order of event cells is the same as the order of events in the array.
+        
         let cellIdentifier = "EventTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EventTableViewCell
         
@@ -86,6 +81,7 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //ShowDetail segue is activated when a cell in the table is clicked. It creates a new view and passes the event that the cell refers to to the newly created view.
         if segue.identifier == "ShowDetail" {
             let eventDetailViewController = segue.destinationViewController as! EventViewController
             

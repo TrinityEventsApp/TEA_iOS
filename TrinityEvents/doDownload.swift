@@ -5,7 +5,7 @@
 //  Created by Bryan on 18/03/2016.
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
-
+// function for downloading to a URL and writing to a file in the app's folder
 import Foundation
 
 func doDownload(url: String,filename: String) {
