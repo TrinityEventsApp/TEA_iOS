@@ -13,6 +13,7 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
     func loadEvents() {
         let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentDirectoryPath:String = path[0]
+        //let filePath = NSURL(fileURLWithPath: "/Users/bryan/TrinityEvents/TrinityEvents/getEvent.json") //use this line to test json loading from file on computer, the other is using the downloaded file on the phone
         let filePath = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/getEvents.json"))
         let data = NSData(contentsOfURL: filePath)! //Data is from the file
         var events1 = [Event]()
@@ -24,7 +25,7 @@ class EventTableViewController: UITableViewController, UIDocumentInteractionCont
             if let result = json["result"] as? [[String: AnyObject]] {
                 for entry in result {
                     let decodedData = NSData(base64EncodedString: entry["Low Res"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters) //get get the imagedata from the string (should store as a byte arrray?)
-                    
+                    //print(entry["Low Res"])
                     let decodedImage = UIImage(data: decodedData!) //convert that data into an image we can use
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateStyle = .MediumStyle

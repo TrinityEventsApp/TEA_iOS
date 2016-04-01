@@ -25,7 +25,7 @@ class EventViewController: UIViewController, UINavigationControllerDelegate {
             eventName.text           = event.name
             eventDescription.text           = event.eventDescription
             photoImageView.image = event.photo
-            print(event.eventDescription)
+            //print(event.eventDescription)
          }
         
     }
